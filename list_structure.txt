@@ -1,0 +1,24 @@
+List of feautures that function well:
+
+Siswa page
+-tambah siswa = bad
+-cari = good
+-detail = good
+-hapus = good
+-upload = bad
+
+surat masuk
+-tambah data = good
+-filter = good
+-detail = good
+-edit = half-good
+-delete = good
+
+-surat keluar
+-tambah data = good
+-filter = good
+-edit = half-good
+-draft = half-good
+-delete = good
+-edit_draft = half-good
+-delete_draft = good
