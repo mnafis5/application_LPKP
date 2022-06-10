@@ -1,0 +1,59 @@
+the flows of uploading image
+
+1.take data from $_FILES
+2.check if the data is image file 
+3.check if the size of data is not bigger than the maximum
+4.combine the name of file + . + extention file using uniqid()
+5.having been combined, move them into a new folder
+6.return output $newNameOfFile
+7.then go to insert of file
+8.upload the image but check it first if it's an image
+9.insert into query where id = id 
+
+$('.tombolTambahBak').on('click', function() {
+        $('#judulModal').html('Tambah ');        
+        $('.modal-footer button[type=submit]').html('Tambah surat');
+        $('#num').val("--");
+        console.log($('#num').val("--"));
+        
+    });
+$(function() {
+   
+    $('.tombolTambahBak').on('click', function() {
+        $('#judulModal').html('Tambah ');        
+        $('.modal-footer button[type=submit]').html(' surat');
+        $('#num').val("--");
+        console.log($('#num').val("--"));
+        
+    });
+
+    $('.tampilModalUbah').on('click', function() {
+        
+        $('#judulModal').html('Ubah isi surat');
+        $('.modal-footer button[type=submit]').html('Ubah surat');
+        $('.modal-body form').attr('action','http://localhost/project_LPK/public/surat/update');
+      
+        const id = $(this).data('id');
+
+        $.ajax({
+            url: 'http://localhost/project_LPK/public/surat/getUbah',
+            data: {id : id},
+            method: 'post',
+            dataType: 'json',
+            success: function(data){
+                $('#num').val(data.num);
+                $('#instansi').val(data.instansi);
+                $('#tanggal').val(data.tanggal);
+                $('#lampiran').val(data.lampiran);
+                $('#isi').val(data.isi);
+                $('#id').val(data.id);
+            }
+        });
+
+
+    });
+
+});
+
+
+ I'm a back-end developer in LPKP where based in Pekalongan,Central Java. I also am a student at Vocational High School 02 Pekalongan       

@@ -1,0 +1,8 @@
+The workflow of making a draft saving system
+-Create a button witch is used on the modal box
+-Use javascript for toggling the words of the button
+-Change the action into the draft url of the form if we click the button for saving draft
+-Setcookie on the app file if we click the button 
+-The data displayed on the page keluar
+-The minimum time is 2 days, longer than that, it will be deleted
+-
