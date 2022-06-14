@@ -8,6 +8,7 @@ class Keluar extends Controller{
         $data['timed']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
         $data['surat'] = $this->model('Surat_keluar')->getAllSurat();
         $this->view('templates2/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('keluar/index',$data);
         $this->view('templates2/footer');
     }
