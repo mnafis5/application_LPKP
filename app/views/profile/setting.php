@@ -3,22 +3,7 @@
 <div class="container">
 	<?php foreach($data['log'] as $su) : ?>
 	<?php
-		
-		$eimg = explode('.',$su['img']);
-		$eimg0 = $eimg[0];
-		if(!isset($eimg[1])){
-			$image = 'no_avatar.jpg'; 
-		}else{
-			$image = $eimg0 .'.'. $eimg[1];
-		}
-
-		// $valid = $data['valid'];
-		// if($su['img'] > 0){
-		// 	$image = $su['img'];	 
-		// }else{
-		// 	$defimg = 'no_avatar.jpg';
-		// 	$image = $defimg;
-		// }
+	  $image = $data['profile'];
 	?>
     <div class="row gutters">
 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
