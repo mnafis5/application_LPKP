@@ -11,7 +11,9 @@
 <div class="container-sm" style="margin-bottom: 200px;">
   <div class="card border-0">
     <div class="card-title ps-3 pe-3"><h3>List Surat Masuk</h3></div>
-    <div class="card-title ps-3 pe-3"><p> Surat ini ditujukan kepada <?= $_SESSION['nama']; ?> selaku <?= $_SESSION['role']; ?></h3><p></div>
+    <?php foreach($data['user'] as $row) : ?>
+    <div class="card-title ps-3 pe-3"><p> Anda melihat sebagai <?= $row['username']; ?> selaku <?= $_SESSION['role']; ?></h3><p></div>
+     <?php endforeach; ?>
     <div class=" end-0 pe-3 ps-3">
 
       <div class="dropdown d-flex justify-content-between">
