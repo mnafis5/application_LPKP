@@ -4,7 +4,10 @@ class Profile extends Controller{
     public function index()
     {
         $data['judul'] = 'profile';
+        $data['user'] = $this->model('Profile_model')->getUserByName();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates3/header',$data);
+        $this->view('partials/sidebar',$data);
         $this->view('profile/index',$data);
         $this->view('templates3/footer');
         
@@ -18,9 +21,13 @@ class Profile extends Controller{
     public function setting()
     {
         $data['judul'] = 'setting';
+        $data['user'] = $this->model('Profile_model')->getUserByName(); 
         $data['log'] = $this->model('Profile_model')->getUserByName(); 
+        $data['valid'] = $this->model('Profile_model')->validextentions();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $data['valid'] = $this->model('Profile_model')->validextentions(); 
         $this->view('templates3/header',$data);
+        $this->view('partials/sidebar',$data);
         $this->view('profile/setting',$data);
         $this->view('templates3/footer');
 
