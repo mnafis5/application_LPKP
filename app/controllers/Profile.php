@@ -56,4 +56,14 @@ class Profile extends Controller{
             exit;
         } 
     }
+    
+    public function plan()
+    {
+        $data['judul'] = 'Rencana page';
+        $data['user'] = $this->model('Profile_model')->getUserByName();
+        $this->view('templates3/header',$data);
+        $this->view('partials/sidebar',$data);
+        $this->view('profile/plan',$data);
+        $this->view('templates3/footer');
+    }
 }
