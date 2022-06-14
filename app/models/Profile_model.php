@@ -94,10 +94,26 @@ class Profile_model{
         $this->db->bind('img', $img);
         $this->db->bind('id', $_POST['id']);
 
-        session_commit();
         $this->db->execute();
 
         return $this->db->rowCount();
       }
+    
+    public function getProfileimage()
+    {
+        $data = $this->getUserByName();
+        foreach($data as $su){
+            $eimg = explode('.',$su['img']);
+            $namimg = $eimg[0];
+            $extend = end($eimg);
+            if($extend == NULL){
+                $namimg = 'no_avatar';
+                $extend = 'jpg';
+            }
+        }
+        $image = $namimg .'.'. $extend;
+
+        return $image;
+    }
 
 }
