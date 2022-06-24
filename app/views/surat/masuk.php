@@ -145,7 +145,7 @@
         <div class="mb-3 row">
           <label for="ket" class="col-sm-2 col-form-label">Tanggal terima</label>
             <div class="col-sm-10">
-            <input type="date" class="form-control" id="tanggal" name="tanggal" value="" placeholder="-" required autocomplete="off" >
+            <input type="date" class="form-control" id="tanggal" name="tgl" value="" placeholder="-" required autocomplete="off" >
           </div>  
         </div>
         <div class="mb-3 row">
@@ -174,12 +174,6 @@
             <input type="text" class="form-control" id="isi" name="isi" value="" placeholder="-" required autocomplete="off" >
           </div>  
         </div>
-        <div class="mb-3 row imf">
-          <label for="time" class="col-sm-2 col-form-label visually-hidden">Waktu</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control visually-hidden" id="time" name="time" value="<?= $data['timed']->format('Y-m-d H:i:s'); ?>" placeholder="-">
-          </div>  
-        </div>
         <div class="mb-3 row im">
           <label for="ket" class="col-sm-2 col-form-label">Surat</label>
           <div class="col-sm-10">
@@ -189,7 +183,7 @@
         <div class="mb-3 row ig">
           <label for="ket" class="col-sm-2 col-form-label">Surat</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="disimg" value="" placeholder="-" disabled>
+            <input type="text" class="form-control" id="disimg" value="" name="img2" placeholder="-" disabled>
           </div>  
         </div>
       </div>
