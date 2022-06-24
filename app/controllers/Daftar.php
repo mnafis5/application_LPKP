@@ -4,18 +4,22 @@ class Daftar extends Controller{
     public function index()
     {
         $data['judul'] = 'Daftar';
-        $data['img'] = 'no_avatar';  
-        $data['mhs'] = $this->model('Siswa_model')->getAllSiswa();
+        $data['mhs'] = $this->model('Siswa_model')->getLimitSiswa();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('daftar/index',$data);
         $this->view('templates/footer');
+        
     }
     
     public function detail($id)
     {
         $data['judul'] = 'Detail siswa';
         $data['mhs'] = $this->model('Siswa_model')->getSiswaById($id);
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('daftar/detail',$data);
         $this->view('templates/footer');
     }
@@ -43,12 +47,20 @@ class Daftar extends Controller{
     
     public function cari()
     {
-        $data['judul'] = 'tambah';
+        $data['judul'] = 'Cari';
         $data['img'] = 'no_avatar';
         $data['mhs'] = $this->model('Siswa_model')->cariDataSiswa();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('daftar/index',$data);
         $this->view('templates/footer');
+
+        if ($_GET['url'] == "daftar/cari") {
+            echo "<script>
+            $('.trigger').hide();
+            </script>";
+        }
     }
     
     public function tambah()
@@ -65,9 +77,24 @@ class Daftar extends Controller{
     
     }
 
+    public function tambahSer()
+    {
+        if($this->model('Siswa_model')->tambahDataSer($_POST > 0) ){
+            Flasher::setFlash('berhasil','ditambah','success');
+            header('Location: ' . BASEURL . '/daftar');
+            exit;
+        }else{
+            Flasher::setFlash('gagal','ditambah','danger');
+            header('Location: ' . BASEURL . '/daftar');
+            exit;
+        }
+    
+    }
+
     public function addPictures()
     {
-        $data['judul'] = 'Upload Image';
+        $data['judul'] = 'Upload Sertifikat';
+        $data['mhs'] = $this->model('Siswa_model')->getAllSiswa();
         $this->view('templates/header',$data);
         $this->view('daftar/addPictures',$data);
         $this->view('templates/footer');   
@@ -86,5 +113,69 @@ class Daftar extends Controller{
             exit;
         }
     }
+
+    public function importData()
+    {
+        $data['judul'] = 'Import Data';
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
+        $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
+        $this->view('daftar/importData',$data);
+        $this->view('templates/footer');
+    }
    
+    public function indexAll()
+    {
+        $data['judul'] = 'All_data_included';
+        $data['img'] = 'no_avatar';
+        $data['mhs'] = $this->model('Siswa_model')->getAllSiswa();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
+        $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
+        $this->view('daftar/index',$data);
+        $this->view('templates/footer');
+
+        if ($_GET['url'] == "daftar/indexAll") {
+            echo "<script>
+            $('.trigger').hide();
+            </script>";
+        }
+    }
+
+    public function tambahImg()
+    {
+        $data['judul'] = 'Upload Profile image';
+        $this->view('templates/header',$data);
+        $this->view('daftar/tambahImg',$data);
+        $this->view('templates/footer');   
+        
+    }
+
+
+    public function uploadSiswa()
+    {
+        if($this->model('Siswa_model')->saveProfile($_POST) > 0) {
+            Flasher::setFlash('berhasil','diubah','success');
+            header('Location: ' .BASEURL . '/daftar');
+            exit;
+        }else{
+            Flasher::setFlash('gagal','diubah','danger');
+            header('Location: ' . BASEURL . '/daftar');
+            exit;
+        }
+    }
+
+    public function deleteAll()
+    {
+       if($this->model('Siswa_model')->delete() > 0) {
+           Flasher::setFlash('berhasil','dihapus','success');
+           header('Location: ' .BASEURL . '/daftar');
+           exit; 
+       }else{
+           Flasher::setFlash('gagal','dihapus','danger');
+           header('Location: ' . BASEURL . '/daftar');
+           exit;
+       }
+    }
+
 }
