@@ -11,7 +11,7 @@ $(function() {
         $('.draf2').hide();        
         $('#num').val("");
         $('#instansi').val("");
-        $('#tanggal').val("");
+        $('#tgl').val("");
         $('#lampiran').val("");
         $('#isi').val("");
         $('#id').val("");
@@ -48,7 +48,7 @@ $(function() {
             success: function(data){
                 $('#num').val(data.num);
                 $('#instansi').val(data.instansi);
-                $('#tanggal').val(data.tanggal);
+                $('#tgl').val(data.tanggal);
                 $('#lampiran').val(data.lampiran);
                 $('#isi').val(data.isi);
                 $('#id').val(data.id);
