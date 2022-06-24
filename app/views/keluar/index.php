@@ -63,15 +63,10 @@
                 foreach ($data['surat'] as $su) :
                 $tgl = explode('-',$su['tanggal']); 
                 $mnth = $this->model('Surat_model')->function_translate($tgl); 
-                $now = new DateTime();
-                // $now->setTimeZone(new DateTimeZone('Asia/Jakarta'));
-                $content = new DateTime($su['time']);
-                $interval = $content->diff($now);
-                $setTime = $this->model('Surat_model')->returnDifferenceTime($interval);
                 $i++?>
                   <tr>
                     <th scope="row"><p><?= $i ?></p></th>
-                    <td><p><?= $su['instansi']; ?></p><p><?= $setTime; ?></p></td>
+                    <td><p><?= $su['instansi']; ?></p></td>
                     <td><p><?= $su['num']; ?></p></td>
                     <td><p><?= $tgl[2] . '-' . $mnth . '-' . $tgl[0]; ?></p></td>
                     <td><p><?= $su['lampiran']; ?></p></td>
@@ -80,7 +75,7 @@
                     <td>
                       <div class="d-flex justify-content-between">
                         <a href="<?= BASEURL; ?>/keluar/ubah/<?= $su['id']; ?>" class=" float-right me-2 tampilModalUbah text-secondary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tambahdata" data-id="<?= $su['id']; ?>">Edit</a>
-                        <a href="<?= BASEURL;?>/keluar/hapusKel/<?= $su['id'];?>" onclick="return confirm('apakah yakin ingin dihapus?')" class="text-decoration-none text-danger">Delete</a>
+                        <a href="<?= BASEURL;?>/keluar/hapusKel/<?= $su['id'];?>" onclick="return confirm('apakah yakin ingin dihapus?')" class="text-decoration-none text-danger act">Delete</a>
                       </div>
                     </td>
                   </tr>
@@ -124,7 +119,7 @@
         <div class="mb-3 row">
           <label for="tanggal" class="col-sm-2 col-form-label">Tanggal kirim</label>
             <div class="col-sm-10">
-            <input type="date" class="form-control" id="tanggal" name="tanggal" value="" placeholder="-" required autocomplete="off" >
+            <input type="date" class="form-control" id="tgl" name="tanggal" value="" placeholder="-" required autocomplete="off" >
           </div>  
         </div>
         <div class="mb-3 row">
@@ -153,12 +148,6 @@
             <input type="text" class="form-control" id="isi" name="isi" value="" placeholder="-" required autocomplete="off" >
           </div>  
         </div>
-        <div class="mb-3 row imf">
-          <label for="time" class="col-sm-2 col-form-label">Waktu</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="time" name="time" value="<?= $data['timed']->format('Y-m-d H:i:s'); ?>" placeholder="-">
-          </div>  
-        </div>
         <div class="mb-3 row im">
           <label for="img" class="col-sm-2 col-form-label">Surat</label>
           <div class="col-sm-10">
@@ -182,6 +171,7 @@
     </div>
   </div>
 </div>
+
 
 
 
