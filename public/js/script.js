@@ -8,7 +8,7 @@ $(function() {
         $('.ig').hide();        
         $('#num').val("");
         $('#instansi').val("");
-        $('#tanggal').val("");
+        $('#tgl').val("");
         $('#lampiran').val("");
         $('#isi').val("");
         $('#id').val("");
@@ -17,7 +17,7 @@ $(function() {
 
 
     $('.drag').on('click',function () {
-        $('.modal-body form').attr('action','http://localhost/project_LPK/public/keluar');
+        $('.modal-body form').attr('action','http://localhost:8080/project_LPK/public/keluar');
         confirm("ok");
     });
 
@@ -25,10 +25,10 @@ $(function() {
         
         $('#judulModal').html('Ubah surat');
         $('.modal-footer button[type=submit]').html('Ubah surat');
-        $('.modal-body form').attr('action','http://localhost/project_LPK/public/surat/update');
+        $('.modal-body form').attr('action','http://localhost:8080/project_LPK/public/surat/update');
         $('.draft').remove();
         $('.imf').hide();
-        $('.im').show();
+        $('.im').show(); 
         $('.ig').show();
       
         const id = $(this).data('id');
@@ -41,8 +41,8 @@ $(function() {
             success: function(data){
                 $('#num').val(data.num);
                 $('#instansi').val(data.instansi);
-                $('#tanggal').val(data.tanggal);
                 $('#lampiran').val(data.lampiran);
+                $('#tgl').val(data.tanggal);
                 $('#isi').val(data.isi);
                 $('#id').val(data.id);
                 $('#disimg').val(data.img);
