@@ -1,9 +1,15 @@
-<?php Flasher::flash(); ?>
+<?php Flasher::flash(); 
+
+    $url = $_GET['url'];
+    $ur = explode('/',$url);
+
+ ?>
 <div class="container-sm mt-5">
     <div class="card p-5 shadow">
         <div class="card-title h3 mb-2">Ubah Password</div>
         <hr>
         <form action="<?= BASEURL; ?>/login/change" method="post">
+        <input type="hidden" name="id" value="<?= $ur[2]; ?>">
             <div class="mb-3 row mt-3">
                 <!-- <label for="ket" class="col-sm-2 col-form-label">Instansi pengirim</label> -->
                 <label for="oldPass" class="col-sm-2 col-form-label">Password lama:</label>
