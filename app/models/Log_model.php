@@ -15,12 +15,12 @@ class Log_model{
          return $this->db->result();
      }
 
-     public function getUser($username,$code)
+     public function getUser($username,$password)
      {
         //  $allPass = $this->return_pass($username,$password);
-         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE username = :username AND code = :code' );
+         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE username = :username AND password = :password' );
          $this->db->bind('username',$username);
-         $this->db->bind('code',$code);
+         $this->db->bind('password',$password);
          return $this->db->resultSet();
      }
      public function getUserByName()
@@ -69,81 +69,87 @@ class Log_model{
      public function addUser($data)
      {
          $pass = $_POST['password'];
-         $length = ['cost' => 9 ];
-         $hash = password_hash($pass,PASSWORD_DEFAULT,$length);
+         $post = '';
+        //  $length = ['cost' => 9 ];
+        //  $hash = password_hash($pass,PASSWORD_DEFAULT,$length);
 
          $this->db->query("INSERT INTO users 
          VALUES
-         ('', :username, :nama, :password, :role)");
-         $this->db->bind('username',$_POST['username']);
+         ('', :nama, :username, :password, :role, :code, :email, :address, :phone, :about, :img)");
          $this->db->bind('nama',$_POST['nama']);
-         $this->db->bind('password',$hash);
+         $this->db->bind('username',$_POST['username']);
+         $this->db->bind('password',$pass);
          $this->db->bind('role',$_POST['role']);
+         $this->db->bind('code',$_POST['code']);
+         $this->db->bind('email',$_POST['email']);
+         $this->db->bind('address',$_POST['address']);
+         $this->db->bind('phone',$_POST['phone']);
+         $this->db->bind('about',$_POST['about']);
+         $this->db->bind('img',$post);
 
          $this->db->execute();
 
          return $this->db->rowCount();
      }
 
-     public function change_pass()
+     public function change_pass($data)
      {
         //check all variables
-        $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
         $oldPass = $_POST['oldPass'];
         $newPass = $_POST['newPass'];
         $verifyPass = $_POST['verifyPass'];
-        $hashed_pass = $this->getUserByName();
-    foreach($hashed_pass as $hash){
+        $basepass = $this->getUserByName();
+    foreach($basepass as $hash){
         //if the old password is true, load the new password
-        if(password_verify($oldPass,$hash['password'])) {
-            //filter the new password
-            $options = [
-                'min_length' => 6,
-                'max_length' => 12
-            ];
-            if($newPass < $options['min_length']) {
-                echo 
-            "<script>
-            alert('Password terlalu pendek');
-             </script>";
-             header('Location: ' . BASEURL . '/login/ubah');
-            exit;
-            }elseif($newPass > $options['max_length']) {
-                echo 
-            "<script>
-            alert('Password terlalu panjang');
+        if($oldPass === $hash['password']) {
+            // //filter the new password
+            // $options = [
+            //     'min_length' => 6,
+            //     'max_length' => 12
+            // ];
+            // if($newPass < $options['min_length']) {
+            //     echo 
+            // "<script>
+            // alert('Password terlalu pendek');
+            //  </script>";
+            //  header('Location: ' . BASEURL . '/login/ubah');
+            // exit;
+            // }elseif($newPass > $options['max_length']) {
+            //     echo
+            // "<script>
+            // alert('Password terlalu panjang');
   
-             </script>";
-            header('Location: ' . BASEURL . '/login/ubah');
-            exit;
-            }elseif (!preg_match("/^[a-zA-Z0-9]*$/",$newPass)) {
-                echo 
-            "<script>
-            alert('Password tidak kuat');
-  
-             </script>";}
-             //having filled the new password, check the new password on the verifyPass
-             if($newPass == $verifyPass){
-                $query = "UPDATE users SET 
-                password = :password
-              WHERE nama = :nama";
-            $past = $_POST['newPass'];
-            $length = ['cost' => 9 ];
-            $hash = password_hash($past,PASSWORD_DEFAULT,$length);
-            $this->db->query($query);
-            $this->db->bind('password',$hash);
-            $this->db->bind('nama', $_SESSION['nama']);
-            
-            //after passing all terms, process the new password  
-            $this->db->execute();
-
-            return $this->db->rowCount();}
+            //  </script>";
+            // header('Location: ' . BASEURL . '/login/ubah');
+            // exit;
+            // }
         
-    }
-    else{ //else then forbid
-        Flasher::setFlash('gagal','diubah','danger');
+
+             //having filled the new password, check the new password on the verifyPass
+            if($newPass === $verifyPass){
+                    $query = "UPDATE users SET 
+                    password = :password
+                    WHERE id = :id";
+
+                // $length = ['cost' => 9 ];
+                // $hash = password_hash($past,PASSWORD_DEFAULT,$length);
+                $this->db->query($query);
+                $this->db->bind('password',$newPass);
+                $this->db->bind('id',$_POST['id']);
+                
+                //after passing all termsi, process the new password  
+                $this->db->execute();
+
+                return $this->db->rowCount();
+            }
+        }
     }
 
-    }  
     }
+
+
+
+
+
+
 }
