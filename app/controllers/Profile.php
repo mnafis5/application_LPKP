@@ -1,7 +1,7 @@
 <?php
 
 class Profile extends Controller{
-    public function index()
+    public function index() 
     {
         $data['judul'] = 'profile';
         $data['user'] = $this->model('Profile_model')->getUserByName();
@@ -14,6 +14,7 @@ class Profile extends Controller{
         if ($_SESSION['nama'] != 'admin') {
             echo "<script>
             $('.akun').remove();
+            $('.use').remove();
             </script>";
         }
     }
@@ -21,21 +22,34 @@ class Profile extends Controller{
     public function setting()
     {
         $data['judul'] = 'setting';
-        $data['user'] = $this->model('Profile_model')->getUserByName(); 
         $data['log'] = $this->model('Profile_model')->getUserByName(); 
+        $data['user'] = $this->model('Profile_model')->getUserByName(); 
         $data['valid'] = $this->model('Profile_model')->validextentions();
         $data['profile'] = $this->model('Profile_model')->getProfileimage();
-        $data['valid'] = $this->model('Profile_model')->validextentions(); 
         $this->view('templates3/header',$data);
         $this->view('partials/sidebar',$data);
         $this->view('profile/setting',$data);
-        $this->view('templates3/footer');
+        $this->view('templates3/footer'); 
 
         if ($_SESSION['nama'] != 'admin') {
             echo "<script>
                 $('.akun').remove();
+                $('.use').remove();
             </script>";
         }
+    }
+
+    public function hapus($id)
+    {
+       if($this->model('Profile_model')->hapusProfile($id) > 0) {
+           Flasher::setFlash('berhasil','dihapus','success');
+           header('Location: ' .BASEURL . '/profile/users');
+           exit; 
+       }else{
+           Flasher::setFlash('gagal','dihapus','danger');
+           header('Location: ' . BASEURL . '/profile/users');
+           exit;
+       }
     }
 
     public function getUbah()
@@ -56,14 +70,62 @@ class Profile extends Controller{
             exit;
         } 
     }
-    
-    public function plan()
+
+    public function history()
     {
-        $data['judul'] = 'Rencana page';
+        $data['judul'] = 'History page';
         $data['user'] = $this->model('Profile_model')->getUserByName();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates3/header',$data);
         $this->view('partials/sidebar',$data);
-        $this->view('profile/plan',$data);
+        $this->view('profile/history',$data);
         $this->view('templates3/footer');
+
+        if ($_SESSION['nama'] != 'admin') {
+            echo "<script>
+                $('.akun').remove();
+                $('.use').remove();
+            </script>";
+        }
     }
+
+    public function users()
+    {
+        $data['judul'] = 'Kelola users page';
+        $data['users'] = $this->model('Profile_model')->getAllUsers();
+        $data['user'] = $this->model('Profile_model')->getUserByName();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
+        $this->view('templates3/header',$data);
+        $this->view('partials/sidebar',$data);
+        $this->view('profile/users',$data);
+        $this->view('templates3/footer');
+
+        if ($_SESSION['nama'] != 'admin') {
+            echo "<script>
+                $('.akun').remove();
+            </script>";
+        }
+    }
+
+    public function profile()
+    {
+        $data['judul'] = 'Profile';
+        $data['log'] = $this->model('Profile_model')->getUserByName(); 
+        $data['user'] = $this->model('Profile_model')->getUserByName(); 
+        $data['valid'] = $this->model('Profile_model')->validextentions();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
+        $this->view('templates3/header',$data);
+        $this->view('partials/sidebar',$data);
+        $this->view('profile/profile',$data);
+        $this->view('templates3/footer'); 
+
+        if ($_SESSION['nama'] != 'admin') {
+            echo "<script>
+                $('.akun').remove();
+                $('.use').remove();
+            </script>";
+        }
+    }
+
+    
 }
