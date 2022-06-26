@@ -16,22 +16,42 @@
             <h1>Selamat datang <?= $data['judul']; ?></h1>
             <p>Tambah user</p>
             <form action="<?= BASEURL; ?>/login/addUser" method="post">
-                <label for="username" class="col-sm-2 col-form-label">Username</label>
-                <div class="co">
-                <input type="text" class="form-control" id="username" name="username" value="" placeholder="-" required autocomplete="off" >
-                </div>
                 <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                 <div class="co">
                 <input type="text" class="form-control" id="nama" name="nama" value="" placeholder="-" required autocomplete="off" >
                 </div>
-                <label for="role" class="col-sm-2 col-form-label">jabatan di LPKP:</label>
+                <label for="username" class="col-sm-2 col-form-label">Username</label>
                 <div class="co">
-                <input type="text" class="form-control" id="role" name="role" value="" placeholder="-" required autocomplete="off" >
-                </div>  
+                <input type="text" class="form-control" id="username" name="username" value="" placeholder="-" required autocomplete="off" >
+                </div>
                 <label for="password" class="col-sm-2 col-form-label">Password</label>
                 <div class="co">
                 <input type="password" class="form-control" id="password" name="password" value="" placeholder="-" required autocomplete="off" >
                 </div>  
+                <label for="role" class="col-sm-2 col-form-label">jabatan di LPKP:</label>
+                <div class="co">
+                <input type="text" class="form-control" id="role" name="role" value="" placeholder="-" required autocomplete="off" >
+                </div>  
+                <label for="code" class="col-sm-2 col-form-label">Code</label>
+                <div class="co">
+                <input type="password" class="form-control" id="code" name="code" value="" placeholder="-" required autocomplete="off" >
+                </div>  
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="co">
+                <input type="email" class="form-control" id="email" name="email" value="" placeholder="-"  autocomplete="off" >
+                </div>  
+                <label for="address" class="col-sm-2 col-form-label">Address</label>
+                <div class="co">
+                <input type="text" class="form-control" id="address" name="address" value="" placeholder="-"  autocomplete="off" >
+                </div>  
+                <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                <div class="co">
+                <input type="text" class="form-control" id="phone" name="phone" value="" placeholder="-"  autocomplete="off" >
+                </div>  
+                <label for="about" class="col-sm-2 col-form-label">About</label>
+                <div class="co">
+                <input type="about" class="form-control" id="about" name="about" value="" placeholder="-"  autocomplete="off" >
+                </div>    
                 <button type="submit" class="btn btn-primary class">Add User</button>
             </form>
         </div>
