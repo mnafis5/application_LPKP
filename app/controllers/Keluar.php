@@ -4,13 +4,35 @@ class Keluar extends Controller{
     public function index() 
     {
         $data['judul'] = 'Keluar';
-        $data['timed'] = new DateTime();
-        $data['timed']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
         $data['surat'] = $this->model('Surat_keluar')->getAllSurat();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates2/header',$data);
         $this->view('partials/navbar',$data);
         $this->view('keluar/index',$data);
         $this->view('templates2/footer');
+
+        if ($_SESSION['role'] == 'pimpinan') {
+            echo "<script>
+                $('.dele').remove();
+            </script>";
+        }
+        if ($_SESSION['role'] == 'sekretaris') {
+            echo "<script>
+                $('.dele').remove();
+            </script>";
+        }
+        if ($_SESSION['role'] == 'staff' || $_SESSION['role'] == 'siswa magang') {
+            echo "<script>
+                $('.act').remove();
+            </script>";
+        }
+        if ($_SESSION['role'] == 'client') {
+            echo "<script>
+                $('.act').remove();
+                $('.tombolTambah').remove(); 
+                $('.drf').remove(); 
+            </script>";
+        }
     }
     public function tambahSuratKeluar()
     {
@@ -41,7 +63,9 @@ class Keluar extends Controller{
     {
         $data['judul'] = 'Detail Surat';
         $data['surat'] = $this->model('Surat_keluar')->getSuratKeluarById($id);
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates2/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('keluar/details',$data);
         $this->view('templates2/footer');
     }
@@ -100,7 +124,10 @@ class Keluar extends Controller{
     {
         $data['judul'] = 'Draft';
         $data['draft'] = $this->model('Draft_model')->getAllDraft();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
+        $data['surat'] = $this->model('Surat_keluar')->getAllSurat();
         $this->view('templates2/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('keluar/draftPage',$data);
         $this->view('templates2/footer');
     }
@@ -121,7 +148,9 @@ class Keluar extends Controller{
     {
         $data['judul'] = 'Keluar';
         $data['surat'] = $this->model('Surat_keluar')->getSuratOnlyByFilter();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('keluar/index',$data);
         $this->view('templates/footer');
         
@@ -130,7 +159,9 @@ class Keluar extends Controller{
     {
         $data['judul'] = 'Masuk';
         $data['surat'] = $this->model('Surat_model')->cariDataSurat();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('surat/masuk',$data);
         $this->view('templates/footer');
     }
