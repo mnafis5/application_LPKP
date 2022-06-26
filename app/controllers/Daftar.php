@@ -11,6 +11,11 @@ class Daftar extends Controller{
         $this->view('daftar/index',$data);
         $this->view('templates/footer');
         
+        if ($_SESSION['role'] != 'admin' || $_SESSION['role'] != 'pimpinan' || $_SESSION['role'] != 'sekretaris') {
+            echo "<script>
+                $('#delAll').remove();
+            </script>";
+        }
     }
     
     public function detail($id)
