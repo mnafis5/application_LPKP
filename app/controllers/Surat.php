@@ -4,26 +4,42 @@ class Surat extends Controller{
     public function index()
     {
         $data['judul'] = 'Masuk';
-        //set up time
-        $data['timed'] = new DateTime();
-        $data['timed']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['user'] = $this->model('Profile_model')->getUserByName();
         $data['surat'] = $this->model('Surat_model')->getAllSurat();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('surat/Masuk',$data);
         $this->view('templates/footer');
 
-        if ($_SESSION['nama'] != 'admin') {
+        if ($_SESSION['role'] == 'pimpinan') {
             echo "<script>
-                $('.tombolTambah').remove();
+                $('.dele').remove();
+            </script>";
+        }
+        if ($_SESSION['role'] == 'sekretaris') {
+            echo "<script>
+                $('.dele').remove();
+            </script>";
+        }
+        if ($_SESSION['role'] == 'staff' || $_SESSION['role'] == 'siswa magang') {
+            echo "<script>
                 $('.act').remove();
-                $('#aksi').remove();
+            </script>";
+        }
+        if ($_SESSION['role'] == 'client') {
+            echo "<script>
+                $('.act').remove();
+                $('.tombolTambah').remove();
             </script>";
         }
     }
     public function tambah()
     {
         $data['judul'] = 'Tambah';
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('surat/tambah',$data);
         $this->view('templates/footer');
     }
@@ -56,7 +72,9 @@ class Surat extends Controller{
     {
         $data['judul'] = 'Detail Surat';
         $data['surat'] = $this->model('Surat_model')->getSuratById($id);
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('surat/details',$data);
         $this->view('templates/footer');
     }
@@ -94,18 +112,39 @@ class Surat extends Controller{
     {
         $data['judul'] = 'Masuk';
         $data['surat'] = $this->model('Surat_model')->getSuratOnlyByFilter();
+        $data['user'] = $this->model('Profile_model')->getUserByName();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('surat/Masuk',$data);
         $this->view('templates/footer');
+
+        if ($_SESSION['nama'] != 'admin') {
+            echo "<script>
+                $('.tombolTambah').remove();
+                $('.act').remove();
+                $('#aksi').remove();
+            </script>";
+        }
         
     }
     public function cari()
     {
         $data['judul'] = 'Masuk';
+        $data['user'] = $this->model('Profile_model')->getUserByName();
         $data['surat'] = $this->model('Surat_model')->cariDataSurat();
-        
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
+        $this->view('partials/navbar',$data);
         $this->view('surat/masuk',$data);
         $this->view('templates/footer');
+
+        if ($_SESSION['nama'] != 'admin') {
+            echo "<script>
+                $('.tombolTambah').remove();
+                $('.act').remove();
+                $('#aksi').remove();
+            </script>";
+        }
     }
 }
