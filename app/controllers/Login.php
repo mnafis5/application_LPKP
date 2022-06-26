@@ -16,21 +16,25 @@ class Login extends Controller{
             'code' => $_POST['code']
         ];
         // $this->model('Log_model'->replace_last_character($datum['code']));
-        $data['login'] = $this->model('Log_model')->getUser($datum['username'],$datum['code']);
+        $data['login'] = $this->model('Log_model')->getUser($datum['username'],$datum['password']);
         if($data['login'] == NULL)
         {
-            header('Location: '.BASEURL.'/404');
-            Flasher::flash('gagal','masuk','danger');
+            // header('Location: '.BASEURL.'/login');
+            // exit;
+            // Flasher::flash('gagal','masuk','danger');
+            echo 'Password atau code atau username anda salah <br>
+            <a href=' . BASEURL . '/login>back</a>';
             
         }else{
             foreach($data['login'] as $row){
-                if($datum['code'] == $row['code']) {
+                if($datum['password'] == $row['password'] && $datum['code'] == $row['code']) {
                 $_SESSION['nama'] = $row['nama'];
                 $_SESSION['role'] = $row['role'];
                 header('Location:'.BASEURL.'/home');
                 }else {
-                    header('Location: '.BASEURL.'/404');
-                    Flasher::flash('gagal','masuk','danger');
+                    // header('Location: '.BASEURL.'/login');
+                    // Flasher::flash('gagal','masuk','danger');
+                    echo "Password atau code atau username anda salah";
                 }
         }
     }
@@ -73,9 +77,20 @@ class Login extends Controller{
     public function ubah()
     {
         $data['judul'] = 'Ubah';
-        $this->view('templates/header',$data);
+        $data['log'] = $this->model('Profile_model')->getUserByName(); 
+        $data['user'] = $this->model('Profile_model')->getUserByName(); 
+        $data['valid'] = $this->model('Profile_model')->validextentions();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
+        $this->view('templates3/header',$data);
+        $this->view('partials/sidebar',$data);
         $this->view('login/ubah',$data);
-        $this->view('templates/footer');
+        $this->view('templates3/footer');
+        if ($_SESSION['nama'] != 'admin') {
+            echo "<script>
+            $('.akun').remove();
+            $('.use').remove();
+            </script>";
+        }
         
     }
 
@@ -83,10 +98,12 @@ class Login extends Controller{
     {
         if ($this->model('Log_model')->change_pass($_POST) > 0 ) {
             Flasher::setFlash('berhasil','diubah','success');
-            header('Location: ' . BASEURL . '/home');
+            header('Location: ' . BASEURL . '/login/ubah');
             exit;
         }else{
             Flasher::setFlash('gagal','diubah','danger');
+            header('Location: ' . BASEURL . '/login/ubah');
+            exit;
         }
     }
 
