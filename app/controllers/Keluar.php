@@ -37,6 +37,7 @@ class Keluar extends Controller{
     public function tambahSuratKeluar()
     {
         if($this->model('Surat_keluar')->tambahSuratKel($_POST > 0) ){
+            $this->model('Surat_keluar')->tracker_add();
             Flasher::setFlash('berhasil','ditambah','success');
             header('Location: ' . BASEURL . '/keluar');
             exit;
@@ -49,6 +50,7 @@ class Keluar extends Controller{
     public function hapusKel($id)
     {
        if($this->model('Surat_keluar')->hapusDataSuratKel($id) > 0) {
+           $this->model('Surat_keluar')->tracker_hapus();
            Flasher::setFlash('gagal','dihapus','success');
            header('Location: ' . BASEURL . '/keluar');
            exit; 
@@ -68,11 +70,13 @@ class Keluar extends Controller{
         $this->view('partials/navbar',$data);
         $this->view('keluar/details',$data);
         $this->view('templates2/footer');
+        $this->model('Surat_keluar')->tracker_isi();
     }
 
     public function ubah()
     {
         if ($this->model('Surat_keluar')->ubahDataSuratKeluar($_POST) > 0 ) {
+            $this->model('Surat_keluar')->tracker_edit();
             Flasher::setFlash('berhasil','diubah','success');
             header('Location: ' . BASEURL . '/keluar');
             exit;
@@ -159,6 +163,7 @@ class Keluar extends Controller{
     {
         $data['judul'] = 'Masuk';
         $data['surat'] = $this->model('Surat_model')->cariDataSurat();
+        $this->model('Surat_keluar')->tracker_cari();
         $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
         $this->view('partials/navbar',$data);
