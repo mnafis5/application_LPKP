@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= BASEURL; ?>/css/bootstrap.css">
     <link rel="stylesheet" href="<?= BASEURL; ?>/css/bootstrap.min.css">
-    <title>Admin only page</title>
+    <title><?= $data['judul']; ?></title>
 </head>
 <body>
     <?php Flasher::Flash(); ?>
 
     <div class="row">
-        <div class="col">
-            <h1>Selamat datang <?= $data['judul']; ?></h1>
-            <p>Tambah user</p>
+        <div class="col"> 
+            <div class="container ">
+                <h3>Tambah user</h3>
             <form action="<?= BASEURL; ?>/login/addUser" method="post">
                 <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                 <div class="co">
@@ -54,6 +54,7 @@
                 </div>    
                 <button type="submit" class="btn btn-primary class">Add User</button>
             </form>
+            </div>
         </div>
     </div>
 </body>
