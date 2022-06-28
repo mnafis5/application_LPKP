@@ -1,23 +1,43 @@
 <div class="container-sm">
     <div class="card p-5">
-        <div class="d-flex justify-content-between">
-            <h3><?= $data['surat']['instansi'];?></h3>
-            <p><?= $data['surat']['tanggal'];?></p>
-        </div>
-        <hr>
-        <div class="d-flex justify-content-between m-0 p-0">
-            <p><?= $data['surat']['isi']; ?></p>
-            <p><?= $data['surat']['num']; ?></p>
-        </div>
-        <embed
-            src="<?= BASEURL; ?>/img/keluar/<?= $data['surat']['img']; ?>"
+        <?php $tgl = explode('-',$data['surat']['tanggal']) ?>
+        
+            <h3 class="mb-2"><?= $data['surat']['instansi'];?></h3>
+        <table class="ml-3 table table-sm">
+            <tr>
+                <td class="">Instansi penerima</td>
+                <td>:</td>
+                <td><?= $data['surat']['instansi']?></td>
+            </tr>
+            <tr>
+                <td>Surat Dikirim</td>
+                <td>:</td>
+                <td><?=  date($tgl[2] . '-' . $tgl[1] . '-' . $tgl[0]);?></td>
+            </tr>
+            <tr>
+                <td class="">Isi Disposisi</td>
+                <td>:</td>
+                <td><?= $data['surat']['isi']?></td>
+            </tr>
+            <tr>
+                <td>Tanggal & Nomor Surat</td>
+                <td>:</td>
+                <td><?= $data['surat']['num']?></td>
+            </tr>
+            <tr>
+                <td>Lampiran</td>
+                <td>:</td>
+                <td><?= $data['surat']['lampiran']?></td>
+            </tr>
+        </table>        
+            <embed
+            src="<?= BASEURL; ?>/img/surat/<?= $data['surat']['img']; ?>"
             type="application/pdf"
             frameBorder="0"
             scrolling="auto"
             height="1000px"
             width="100%"
             ></embed>
-            <img src="<?= $data['surat']['img']; ?>" alt="">
         <div class="card-link">
                 <a href="<?= BASEURL; ?>/keluar" class="btn btn-outline-light text-black me-3 mb-3">Back</a>
         </div>
