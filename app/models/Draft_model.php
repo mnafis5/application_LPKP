@@ -101,19 +101,22 @@ class Draft_model{
     public function ubahDraft($data)
     {
         $img = $this->create();
-        $query = "INSERT INTO  keluar VALUES 
-                    ('', :num, :instansi, :tanggal, :lampiran, :isi, :img)";
+        $query = "INSERT INTO keluar
+                  VALUES 
+                  ('', :num, :instansi, :tanggal, :lampiran, :isi, :img, :time)";
 
         $this->db->query($query);
-        $this->db->bind('num', $_POST['num']);
-        $this->db->bind('instansi', $_POST['instansi']);
-        $this->db->bind('tanggal', $_POST['tanggal']);
-        $this->db->bind('lampiran', $_POST['lampiran']);
-        $this->db->bind('isi', $_POST['isi']);
-        $this->db->bind('img', $img);
-
+        $this->db->bind('num',$_POST['num']);
+        $this->db->bind('instansi',$_POST['instansi']);
+        $this->db->bind('tanggal',$_POST['tanggal']);
+        $this->db->bind('lampiran',$_POST['lampiran']);
+        $this->db->bind('isi',$_POST['isi']);
+        $this->db->bind('time',$_POST['time']);
+        $this->db->bind('img',$img);
+        
+    
         $this->db->execute();
-
+        
         return $this->db->rowCount();
       }
 
