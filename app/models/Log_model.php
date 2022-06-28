@@ -147,7 +147,32 @@ class Log_model{
 
     }
 
+    public function tracker_login($nama,$role)
+    {
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['isi'] = 'telah login website LPKP';
+        $query = "INSERT INTO history_user_login VALUES('', :nama, :role, :ket, :timestamp)";
 
+        $this->db->query($query);
+        $this->db->bind('nama',$nama);
+        $this->db->bind('role',$role);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+    }
+
+    public function hapusActive($id)
+    {
+        $query = 'DELETE FROM history_user_login WHERE id = :id';
+        $this->db->query($query);
+        $this->db->bind('id',$id);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 
 
 
