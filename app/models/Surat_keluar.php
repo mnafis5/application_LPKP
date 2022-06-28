@@ -95,7 +95,7 @@ class Surat_keluar{
 
         $query = "INSERT INTO keluar
                   VALUES 
-                  ('', :num, :instansi, :tanggal, :lampiran, :isi, :img, :time)";
+                  ('', :num, :instansi, :tanggal, :lampiran, :isi, :img)";
 
         $this->db->query($query);
         $this->db->bind('num',$_POST['num']);
@@ -103,7 +103,6 @@ class Surat_keluar{
         $this->db->bind('tanggal',$_POST['tanggal']);
         $this->db->bind('lampiran',$_POST['lampiran']);
         $this->db->bind('isi',$_POST['isi']);
-        $this->db->bind('time',$_POST['time']);
         $this->db->bind('img',$img);
         
     
@@ -160,6 +159,100 @@ class Surat_keluar{
         if($tgl[1] == '10') return 'Oktober';
         if($tgl[1] == '11') return 'November';
         if($tgl[1] == '12') return 'Desember';
+    }
+
+    public function tracker_isi()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah melihat isi dari salah satu surat pada surat keluar';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_add()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah menambah satu surat pada surat keluar';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+    public function tracker_edit()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah mengedit satu surat pada surat keluar';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_cari()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah mencari salah satu atau beberapa surat pada surat keluar';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_hapus()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah menghapus salah satu atau beberapa surat pada surat keluar';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
     }
 
 }
