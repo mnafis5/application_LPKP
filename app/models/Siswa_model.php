@@ -283,6 +283,118 @@ class Siswa_model{
         return $this->db->rowCount();
     }
 
+    public function tracker()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah melihat isi dari salah satu profil siswa';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_add()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah menambah satu data siswa';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+    
+    public function tracker_cari()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah mencari salah satu atau beberapa profil siswa';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_hapus()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah menghapus satu atau beberapa profil siswa';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_ser()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah mengupload sertifikat pada salah satu profil siswa';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+    public function tracker_img()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah mengupload image pada salah satu profil siswa';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
 
 
 
