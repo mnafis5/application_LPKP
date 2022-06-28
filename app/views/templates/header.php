@@ -51,10 +51,14 @@
       }
 
     </style>
+    <script src="<?= BASEURL; ?>/js/bootstrap.js"></script>
+    <script src="<?= BASEURL; ?>/js/bootstrap.min.js"></script>
+    <script src="<?= BASEURL; ?>/js/bootstrap.bundle.min.js"></script>
 
     <title>Page <?= $data['judul']; ?></title>
 </head>
 <body>
+
 
 <div class=" mb-2" style="height:60px;">&nbsp;</div>
 
