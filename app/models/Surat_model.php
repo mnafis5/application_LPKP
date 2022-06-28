@@ -95,7 +95,7 @@ class Surat_model {
 
         $query = "INSERT INTO surat
                   VALUES 
-                  ('', :num, :instansi, :tanggal, :lampiran, :isi, :img, :time)";
+                  ('', :num, :instansi, :tanggal, :lampiran, :isi, :img)";
 
         $this->db->query($query);
         $this->db->bind('num',$_POST['num']);
@@ -103,8 +103,7 @@ class Surat_model {
         $this->db->bind('tanggal',$_POST['tanggal']);
         $this->db->bind('lampiran',$_POST['lampiran']);
         $this->db->bind('isi',$_POST['isi']);
-        $this->db->bind('img',$img);
-        $this->db->bind('time',$_POST['time']);        
+        $this->db->bind('img',$img);        
     
         $this->db->execute();
         
@@ -209,4 +208,111 @@ class Surat_model {
         $this->db->bind('keyword',"%$keyword%");
         return $this->db->resultSet();
     }
+
+    public function tracker()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah melihat isi dari salah satu surat pada surat masuk';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_add()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah menambah satu surat pada surat masuk';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+    public function tracker_edit()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah mengedit satu surat pada surat masuk';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_cari()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah mencari salah satu atau beberapa surat pada surat masuk';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function tracker_hapus()
+    {
+        $data['name'] = $_SESSION['nama'];
+        $data['time'] = new DateTime();
+        $data['time']->setTimeZone(new DateTimeZone('Asia/Jakarta'));
+        $data['role'] = $_SESSION['role'];
+        $data['isi'] = 'telah menghapus salah satu atau beberapa surat pada surat masuk';
+        $query = "INSERT INTO history_user_click VALUES('', :nama, :role, :ket, :timestamp)";
+
+        $this->db->query($query);
+        $this->db->bind('nama',$data['name']);
+        $this->db->bind('role',$data['role']);
+        $this->db->bind('ket',$data['isi']);
+        $this->db->bind('timestamp',$data['time']->format('Y-m-d H:i:s'));
+
+        $this->db->execute();
+
+    }
+
+    public function hapusActive($id)
+    {
+        $query = 'DELETE FROM history_user_click WHERE id = :id';
+        $this->db->query($query);
+        $this->db->bind('id',$id);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+
 }
