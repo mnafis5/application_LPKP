@@ -46,6 +46,7 @@ class Surat extends Controller{
     public function tambahSurat()
     {
         if($this->model('Surat_model')->tambahSurat($_POST > 0) ){
+            $this->model('Surat_model')->tracker_add();
             Flasher::setFlash('berhasil','ditambah','success');
             header('Location: ' . BASEURL . '/surat');
             exit;
@@ -58,6 +59,7 @@ class Surat extends Controller{
     public function hapus($id)
     {
        if($this->model('Surat_model')->hapusDataSurat($id) > 0) {
+           $this->model('Surat_model')->tracker_hapus();
            Flasher::setFlash('berhasil','dihapus','success');
            header('Location: ' .BASEURL . '/surat/masuk');
            exit; 
@@ -68,6 +70,18 @@ class Surat extends Controller{
        }
     }
 
+    public function hapusAct($id)
+    {
+       if($this->model('Surat_model')->hapusActive($id) > 0) {
+           header('Location: ' .BASEURL . '/profile/history');
+           exit; 
+       }else{
+           header('Location: ' . BASEURL . '/profile/history');
+           exit;
+       }
+    }
+
+
     public function details($id)
     {
         $data['judul'] = 'Detail Surat';
@@ -77,10 +91,12 @@ class Surat extends Controller{
         $this->view('partials/navbar',$data);
         $this->view('surat/details',$data);
         $this->view('templates/footer');
+        $this->model('Surat_model')->tracker();
     }
     public function update()
     {
         if ($this->model('Surat_model')->ubahDataSiswa($_POST) > 0 ) {
+            $this->model('Surat_model')->tracker_edit();
             Flasher::setFlash('berhasil','diubah','success');
             header('Location: ' . BASEURL . '/surat');
             exit;
@@ -93,19 +109,6 @@ class Surat extends Controller{
     public function getUbah()
     {
       echo json_encode( $this->model('Surat_model')->getSuratById($_POST['id']) );
-    }
-
-    public function draft()
-    {
-        if($this->model('Surat_model')->tambahDraft($_POST > 0) ){
-            Flasher::setFlash('berhasil','disimpan ke draft','success');
-            header('Location: ' . BASEURL . '/surat');
-            exit;
-        }else{
-            Flasher::setFlash('gagal','disimpan ke draft','danger');
-            header('Location: ' . BASEURL . '/daftar');
-            exit;
-        }
     }
 
     public function filter()
@@ -131,6 +134,7 @@ class Surat extends Controller{
     public function cari()
     {
         $data['judul'] = 'Masuk';
+        $this->model('Surat_model')->tracker_cari();
         $data['user'] = $this->model('Profile_model')->getUserByName();
         $data['surat'] = $this->model('Surat_model')->cariDataSurat();
         $data['profile'] = $this->model('Profile_model')->getProfileimage();
