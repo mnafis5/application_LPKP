@@ -15,6 +15,7 @@ class Profile extends Controller{
             echo "<script>
             $('.akun').remove();
             $('.use').remove();
+            $('.his').remove();
             </script>";
         }
     }
@@ -35,6 +36,7 @@ class Profile extends Controller{
             echo "<script>
                 $('.akun').remove();
                 $('.use').remove();
+                $('.his').remove();
             </script>";
         }
     }
@@ -74,6 +76,8 @@ class Profile extends Controller{
     public function history()
     {
         $data['judul'] = 'History page';
+        $data['us_act'] = $this->model('Profile_model')->getUserAct();
+        $data['us_log'] = $this->model('Profile_model')->getUserLog();
         $data['user'] = $this->model('Profile_model')->getUserByName();
         $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates3/header',$data);
@@ -85,6 +89,7 @@ class Profile extends Controller{
             echo "<script>
                 $('.akun').remove();
                 $('.use').remove();
+                $('.his').remove();
             </script>";
         }
     }
@@ -123,9 +128,12 @@ class Profile extends Controller{
             echo "<script>
                 $('.akun').remove();
                 $('.use').remove();
+                $('.his').remove();
             </script>";
         }
     }
+
+    
 
     
 }
