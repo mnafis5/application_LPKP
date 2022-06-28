@@ -30,7 +30,7 @@
             <ul class="dropdown-menu-end dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="<?= BASEURL;?>/profile">Dashboard</a></li>
               <li><a class="dropdown-item" href="<?= BASEURL;?>/login/logout">Log out</a></li>
-              <li><a class="dropdown-item" href="<?= BASEURL;?>/login/ubah">Ubah Password</a></li>
+              
             </ul>
           </li>
         </ul>
