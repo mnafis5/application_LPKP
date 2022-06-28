@@ -30,6 +30,7 @@ class Login extends Controller{
                 if($datum['password'] == $row['password'] && $datum['code'] == $row['code']) {
                 $_SESSION['nama'] = $row['nama'];
                 $_SESSION['role'] = $row['role'];
+                $this->model('Log_model')->tracker_login($_SESSION['nama'],$_SESSION['role']);
                 header('Location:'.BASEURL.'/home');
                 }else {
                     // header('Location: '.BASEURL.'/login');
@@ -51,12 +52,15 @@ class Login extends Controller{
     public function admin()
     {
         $data['judul'] = $_SESSION['nama'];
+        $data['log'] = $this->model('Profile_model')->getUserByName(); 
+        $data['user'] = $this->model('Profile_model')->getUserByName(); 
+        $data['valid'] = $this->model('Profile_model')->validextentions();
+        $data['profile'] = $this->model('Profile_model')->getProfileimage();
+        $this->view('templates3/header',$data);
+        $this->view('partials/sidebar',$data);
         $this->view('login/admin',$data);
+        $this->view('templates3/footer');
 
-        if($_SESSION['nama'] != 'admin')
-        {
-            header('Location:'.BASEURL.'/home');
-        }
     }
 
     public function addUser()
@@ -107,5 +111,15 @@ class Login extends Controller{
         }
     }
 
+    public function hapusUserLog($id)
+    {
+        if($this->model('Log_model')->hapusActive($id) > 0) {
+            header('Location: ' .BASEURL . '/profile/history');
+            exit; 
+        }else{
+            header('Location: ' . BASEURL . '/profile/history');
+            exit;
+        }
+    }
     
 }
