@@ -11,21 +11,21 @@
                           <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <a href="<?= BASEURL; ?>/profile/plan" class="nav-link align-middle px-0">
-                          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Plan</span>
+                  <li class="nav-item his">
+                      <a href="<?= BASEURL; ?>/profile/history" class="nav-link align-middle px-0">
+                          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">History</span>
                       </a>
                   </li>
-                  <li>
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Rencana</span> </a>
-
-                    </li>
-                    <li>
-                      <form action="<?= BASEURL; ?>/profile/search" method="post" class="d-flex mt-3" style="max-width: 420px; max-height: 30px;" >
-                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                      <button class="btn btn-outline-success" type="submit" style="line-height:0px"><i class="fa-solid fa-magnifying-glass"></i></button>
-                      </form>
-                    </li>
+                  <li class="nav-item use">
+                      <a href="<?= BASEURL; ?>/profile/users" class="nav-link align-middle px-0">
+                          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Kelola users</span>
+                      </a>
+                  </li>
+                  <li class="akun nav-item">
+                    <a class=" akun nav-link align-middle px-0" href="<?= BASEURL; ?>/login/admin">
+                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Tambah akun</span>
+                  </a>
+                  </li>
                 </ul>
                 <hr>
                 <?php
@@ -50,9 +50,9 @@
                     </a>
                     
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li class="akun"><a class="dropdown-item akun" href="<?= BASEURL; ?>/login/admin">tambah akun</a></li>
+                        <li><a class="dropdown-item" href="<?= BASEURL; ?>/login/ubah/<?= $su['id']; ?>">Ubah Password</a></li>                        
                         <li><a class="dropdown-item" href="<?= BASEURL; ?>/profile/setting">Settings</a></li>
-                        <li><a class="dropdown-item" href="<?= BASEURL; ?>/profile/setting">Profile</a></li>
+                        <li><a class="dropdown-item" href="<?= BASEURL; ?>/profile/profile">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -69,14 +69,9 @@
             <div class="navbar-brand">
               <a class="navbar-brand active" aria-current="page" href="#">LPKP</a>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon" style="color:#000;"></span>
-            </button>
             <div class="justify-content-start collapse navbar-collapse nav-item" id="navbarSupportedContent">
               <ul class="nav justify-content-end">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="<?= BASEURL; ?>/profile/notifikasi"><i class="fa-solid fa-bell"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">99+<span class="visually-hidden">unread messages</span></span></i></a>
-                </li>
+                
               </ul>
             </div>
           </div>
