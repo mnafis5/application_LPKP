@@ -1,16 +1,15 @@
 <div class="container">
-
-    <form action="<?= BASEURL; ?>/daftar/uploadImg" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" id="id">
+    <?php 
+    $url = $_GET['url'];
+    $ur = explode('/',$url);
+    
+    ?>
+    <form action="<?= BASEURL; ?>/daftar/tambahSer" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="id" value="<?= $ur[2]; ?>">
         <label for="img">Image:</label>
-        <input type="file" id="newPicture" name="img" required>
-        <label for="ket">Keterangan:</label>
-        <input type="text" id="newPicture" name="ket" required>
-        <label for="ket">Keterangan:</label>
-        <input type="text" id="newPicture" name="name" >
-        <label for="ket">Keterangan:</label>
-        <input type="text" id="newPicture" name="jk">
-        
+        <input type="file" id="newPicture" name="ser" required> 
         <button type="submit" class="button">Tambah Data</button>
-    </form>
+</form>
+
+<a href="<?= BASEURL; ?>/daftar/tambahImg">Upload gambar profile</a>
 </div>
