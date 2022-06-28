@@ -10,10 +10,10 @@
 
 <div class="container-sm" style="margin-bottom: 200px;">
   <div class="card border-0">
+  <?php foreach($data['user'] as $row) : ?>
     <div class="card-title ps-3 pe-3"><h3>List Surat Masuk</h3></div>
-    <?php foreach($data['user'] as $row) : ?>
-    <div class="card-title ps-3 pe-3"><p> Anda melihat sebagai <?= $row['username']; ?> selaku <?= $_SESSION['role']; ?></h3><p></div>
-     <?php endforeach; ?>
+    <div class="card-title ps-3 pe-3"><p>Anda melihat sebagai <?= $row['username']; ?> selaku <?= $_SESSION['role']; ?></h3><p></div>
+    <?php endforeach; ?>
     <div class=" end-0 pe-3 ps-3">
 
       <div class="dropdown d-flex justify-content-between">
@@ -72,11 +72,6 @@
                 foreach ($data['surat'] as $su) :
                 $tgl = explode('-',$su['tanggal']);
                 $mnth = $this->model('Surat_model')->function_translate($tgl); 
-                $now = new DateTime();
-                // $now->setTimeZone(new DateTimeZone('Asia/Jakarta'));
-                $content = new DateTime($su['time']);
-                $interval = $content->diff($now);
-                $setTime = $this->model('Surat_model')->returnDifferenceTime($interval);
                 
                 // if ($_GET['url'] == "surat/cari") {
                 //   return "<script>
@@ -90,7 +85,7 @@
                   <tr>
                     
                     <th scope="row"><p><?= $i ?></p></th>
-                    <td><p><?= $su['instansi']; ?></p><p><?= $setTime; ?></p></td>
+                    <td><p><?= $su['instansi']; ?></p></td>
                     <td><p><?= $su['num']; ?></p></td>
                     <td><p><?= $tgl[2] . '-' . $mnth . '-' . $tgl[0]; ?></p></td>
                     <td><p><?= $su['lampiran']; ?></p></td>
@@ -99,7 +94,7 @@
                     <td>
                       <div class="d-flex justify-content-between act">
                         <a href="<?= BASEURL; ?>/surat/update/<?= $su['id']; ?>" class=" float-right me-2 tampilModalUbah text-secondary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tambahdata" data-id="<?= $su['id']; ?>">Edit</a>
-                        <a href="<?= BASEURL;?>/surat/hapus/<?= $su['id'];?>" onclick="return confirm('apakah yakin ingin dihapus?')" class="text-decoration-none text-danger">Delete</a>
+                        <a href="<?= BASEURL;?>/surat/hapus/<?= $su['id'];?>" onclick="return confirm('apakah yakin ingin dihapus?')" class="text-decoration-none text-danger dele">Delete</a>
                       </div>
                     </td>
                   </tr>
@@ -145,7 +140,7 @@
         <div class="mb-3 row">
           <label for="ket" class="col-sm-2 col-form-label">Tanggal terima</label>
             <div class="col-sm-10">
-            <input type="date" class="form-control" id="tanggal" name="tgl" value="" placeholder="-" required autocomplete="off" >
+            <input type="date" class="form-control" id="tgl" name="tanggal" value="" placeholder="-" required autocomplete="off" >
           </div>  
         </div>
         <div class="mb-3 row">
@@ -177,7 +172,7 @@
         <div class="mb-3 row im">
           <label for="ket" class="col-sm-2 col-form-label">Surat</label>
           <div class="col-sm-10">
-            <input type="file" class="form-control" id="img" name="img" value="" placeholder="-">
+            <input type="file" class="form-control" id="img" value="" name="img" placeholder="-">
           </div>  
         </div>
         <div class="mb-3 row ig">
@@ -195,7 +190,5 @@
     </div>
   </div>
 </div>
-
-
 
 
