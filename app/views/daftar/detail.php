@@ -1,12 +1,9 @@
-
-
-
 <div class="container mt-5">
     <div class="card mb-5" style="width: 700px; margin: auto;">
         <div class="card-body">
             <div class="text-center">
             
-                <img src="<?= BASEURL;?>/img/no_avatar.jpg" style="width: 150px;" alt="">
+                <img src="<?= BASEURL;?>/img/siswa/<?= $data['mhs']['img']; ?>" style="width: 150px;" alt="">
 
                 <h4 class="card-title" style="margin-top: 15px;"><strong><?= $data['mhs']['nama'];?></strong></h4>
                 <h6 class="card-subtitle"><?= $data['mhs']['num'];?></h6>
@@ -50,16 +47,17 @@
                         <td><?= $data['mhs']['phone']?></td>
                     </tr>
                     <tr>
-                        <td>Keterangan</td>
+                        <td>NIK</td>
                         <td>:</td>
-                        <td><?= $data['mhs']['ket']?></td>
+                        <td><?= $data['mhs']['nik']?></td>
                     </tr>
                 </table>
                 
             </div> 
-            <div class="img" style="text-align: center; margin-top: 10px; border:1px solid; width:600px; margin: 40px auto;">
-                <a href="<?= BASEURL; ?>/img/siswa/<?= $data['mhs']['img'] ?>.jpg"><img src="<?= BASEURL; ?>/img/<?= $data['mhs']['img']?>.jpg" style="" id="gambar"></a>
-            </div>
+            <!-- <div class="img" style="text-align: center; margin-top: 10px; border:1px solid; width:600px; margin: 40px auto;"> -->
+            <img src="<?= BASEURL;?>/img/sertificate/<?= $data['mhs']['ser']; ?>"  style="width: 600px;" class="border mb-3">
+
+            <!-- </div> -->
             <div class="card-link">
                 <a href="<?= BASEURL; ?>/daftar" class="btn btn-outline-primary float-end me-3 mb-3">Back</a>
             </div>
