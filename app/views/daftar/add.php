@@ -84,15 +84,21 @@
           </div>  
         </div>
         <div class="mb-3 row">
-          <label for="ket" class="col-sm-2 col-form-label">Keterangan</label>
+          <label for="ket" class="col-sm-2 col-form-label">NIK</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="ket" name="ket" value="" placeholder="-">
+            <input type="int" class="form-control" id="nik" name="nik" value="" placeholder="-">
           </div>  
         </div>
         <div class="mb-3 row">
-          <label for="ket" class="col-sm-2 col-form-label">Gambar</label>
+          <label for="ket" class="col-sm-2 col-form-label">Gambar profil:</label>
           <div class="col-sm-10">
-            <input type="file" class="form-control" id="ket" name="ket" value="" placeholder="-">
+            <input type="file" class="form-control" id="ket" name="img" value="" placeholder="-">
+          </div>  
+        </div>
+        <div class="mb-3 row">
+          <label for="ket" class="col-sm-2 col-form-label">Gambar sertifikat:</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control" id="ket" name="ser" value="" placeholder="-">
           </div>  
         </div>
 
