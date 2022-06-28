@@ -2,6 +2,8 @@
 
 class Profile_model{
     private $table = 'users';
+    private $table_act = 'history_user_click';
+    private $table_act2 = 'history_user_login';
     private $db;
 
     public function __construct()
@@ -15,6 +17,11 @@ class Profile_model{
          $this->db->bind('id',$id);
          return $this->db->resultSet();
      }
+     public function getAllUsers()
+     {
+         $this->db->query('SELECT * FROM ' . $this->table);
+         return $this->db->resultSet();
+     }
 
      public function getUserByName()
      {
@@ -22,6 +29,26 @@ class Profile_model{
          $this->db->bind('nama',$_SESSION['nama']);
          return $this->db->resultSet();
      }
+     public function getUserAct()
+     {
+        $this->db->query('SELECT * FROM ' . $this->table_act . ' ORDER BY timestamp DESC');
+         return $this->db->resultSet();
+     }
+     public function getUserLog()
+     {
+         $this->db->query('SELECT * FROM ' . $this->table_act2 . ' ORDER BY timestamp DESC');
+         return $this->db->resultSet();
+     }
+     public function hapusProfile($id)
+    {
+        $query = 'DELETE FROM users WHERE id = :id';
+        $this->db->query($query);
+        $this->db->bind('id',$id);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
      public function validextentions(){
         $imageExtentionsValid = ['jpg','png','jpeg','pdf','docx','webp'];
         return $imageExtentionsValid;
@@ -72,11 +99,10 @@ class Profile_model{
      public function ubahDataUser($data)
     {
         $img = $this->create();
-        $query = "UPDATE users SET 
-                    nama = :nama,
+        $query = "UPDATE users SET
                     username = :username,
                     role = :role,
-                    email = :email,
+                    email = :email, 
                     address = :address,
                     phone = :phone,
                     about = :about,
@@ -84,7 +110,6 @@ class Profile_model{
                   WHERE id = :id";
 
         $this->db->query($query);
-        $this->db->bind('nama', $_SESSION['nama']);
         $this->db->bind('username', $_POST['username']);
         $this->db->bind('role', $_POST['role']);
         $this->db->bind('email', $_POST['email']);
@@ -98,10 +123,12 @@ class Profile_model{
 
         return $this->db->rowCount();
       }
-    
     public function getProfileimage()
     {
         $data = $this->getUserByName();
+        $eimg = '';
+        $namimg = '';
+        $extend = '';
         foreach($data as $su){
             $eimg = explode('.',$su['img']);
             $namimg = $eimg[0];
