@@ -10,12 +10,14 @@ class Daftar extends Controller{
         $this->view('partials/navbar',$data);
         $this->view('daftar/index',$data);
         $this->view('templates/footer');
+        //|| $_SESSION['role'] != 'pimpinan' || $_SESSION['role'] != 'sekretaris'
         
-        if ($_SESSION['role'] != 'admin' || $_SESSION['role'] != 'pimpinan' || $_SESSION['role'] != 'sekretaris') {
+        if ($_SESSION['role'] != 'admin') {
             echo "<script>
                 $('#delAll').remove();
             </script>";
         }
+        
     }
     
     public function detail($id)
@@ -27,11 +29,13 @@ class Daftar extends Controller{
         $this->view('partials/navbar',$data);
         $this->view('daftar/detail',$data);
         $this->view('templates/footer');
+        $this->model('Siswa_model')->tracker();
     }
 
     public function hapus($id)
     {
        if($this->model('Siswa_model')->hapusDataSiswa($id) > 0) {
+           $this->model('Surat_model')->tracker_hapus();
            Flasher::setFlash('berhasil','dihapus','success');
            header('Location: ' .BASEURL . '/daftar');
            exit; 
@@ -55,6 +59,7 @@ class Daftar extends Controller{
         $data['judul'] = 'Cari';
         $data['img'] = 'no_avatar';
         $data['mhs'] = $this->model('Siswa_model')->cariDataSiswa();
+        $this->model('Siswa_model')->tracker_cari();
         $data['profile'] = $this->model('Profile_model')->getProfileimage();
         $this->view('templates/header',$data);
         $this->view('partials/navbar',$data);
@@ -71,6 +76,7 @@ class Daftar extends Controller{
     public function tambah()
     {
         if($this->model('Siswa_model')->tambahDataSiswa($_POST > 0) ){
+            $this->model('Siswa_model')->tracker();
             Flasher::setFlash('berhasil','ditambah','success');
             header('Location: ' . BASEURL . '/daftar');
             exit;
@@ -85,6 +91,7 @@ class Daftar extends Controller{
     public function tambahSer()
     {
         if($this->model('Siswa_model')->tambahDataSer($_POST > 0) ){
+            $this->model('Siswa_model')->tracker_ser();
             Flasher::setFlash('berhasil','ditambah','success');
             header('Location: ' . BASEURL . '/daftar');
             exit;
@@ -109,6 +116,7 @@ class Daftar extends Controller{
     public function uploadImg()
     {
         if($this->model('Picture')->saveImg($_POST) > 0) {
+            $this->model('Siswa_model')->tracker_img();
             Flasher::setFlash('berhasil','diubah','success');
             header('Location: ' .BASEURL . '/daftar');
             exit;
@@ -160,6 +168,7 @@ class Daftar extends Controller{
     public function uploadSiswa()
     {
         if($this->model('Siswa_model')->saveProfile($_POST) > 0) {
+            $this->model('Siswa_model')->tracker_img();
             Flasher::setFlash('berhasil','diubah','success');
             header('Location: ' .BASEURL . '/daftar');
             exit;
